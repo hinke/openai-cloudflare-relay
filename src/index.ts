@@ -157,6 +157,6 @@ export default {
       return createRealtimeClient(request, env, ctx);
     }
 
-    return new Response("Expected Upgrade: websocket", { status: 426 });
+    return new Response("Expected Upgrade: websocket v", { status: 426 });
   },
 };
