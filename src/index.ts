@@ -8,7 +8,7 @@ type Env = {
 };
 
 const DEBUG = false; // set as true to see debug logs
-const MODEL = "gpt-4o-realtime-preview-2024-10-01";
+const MODEL = "gpt-4o-realtime-preview-2024-12-17";
 const OPENAI_URL = "wss://api.openai.com/v1/realtime";
 
 function owrLog(...args: unknown[]) {
