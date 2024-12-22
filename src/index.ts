@@ -1,7 +1,7 @@
 // Copyright (c) 2024 Cloudflare, Inc.
 // Licensed under the MIT license found in the LICENSE file or at https://opensource.org/licenses/MIT
 
-import { RealtimeClient } from "@openai/realtime-api-beta";
+import { RealtimeClient } from "openai-realtime-api-beta";
 
 type Env = {
   OPENAI_API_KEY: string;
@@ -9,7 +9,7 @@ type Env = {
 
 const DEBUG = false; // set as true to see debug logs
 const MODEL = "gpt-4o-realtime-preview-2024-12-17";
-const OPENAI_URL = 'wss://api.openai.com/v1/realtime?model={MODEL}'; //Until the merge a fix for model choosing
+const OPENAI_URL = "wss://api.openai.com/v1/realtime";
 
 function owrLog(...args: unknown[]) {
   if (DEBUG) {
@@ -59,6 +59,7 @@ async function createRealtimeClient(
       apiKey,
       debug: DEBUG,
       url: OPENAI_URL,
+      model: MODEL,
     });
   } catch (e) {
     owrError("Error creating OpenAI RealtimeClient", e);
@@ -122,8 +123,7 @@ async function createRealtimeClient(
   // Connect to OpenAI Realtime API
   try {
     owrLog(`Connecting to OpenAI...`);
-    // @ts-expect-error Waiting on https://github.com/openai/openai-realtime-api-beta/pull/52
-    await realtimeClient.connect({ model });
+    await realtimeClient.connect();
     owrLog(`Connected to OpenAI successfully!`);
     while (messageQueue.length) {
       const message = messageQueue.shift();
